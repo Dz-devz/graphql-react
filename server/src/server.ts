@@ -25,7 +25,7 @@ const users = [
 const typeDefs = `
   type Query {
     getUsers: [User]
-    getUsersById(id: ID!): User
+    getUserById(id: ID!): User
   }
 
   type Mutation {
@@ -40,7 +40,29 @@ const typeDefs = `
   }
 `;
 
-const resolvers = {};
+const resolvers = {
+  Query: {
+    getUsers: () => {
+      return users;
+    },
+    getUserById: (parent, args) => {
+      const id = args.id;
+      return users.find((user) => user.id === id);
+    },
+  },
+  Mutation: {
+    createUser: (parent, args) => {
+      const { name, age, isMarried } = args;
+      const newUser = {
+        id: (users.length + 1).toString(),
+        name,
+        age,
+        isMarried,
+      };
+      users.push(newUser);
+    },
+  },
+};
 
 const server = new ApolloServer({ typeDefs, resolvers });
 
