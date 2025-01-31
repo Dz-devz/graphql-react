@@ -39,6 +39,10 @@ type CreateUserArgs = {
   isMarried: boolean;
 };
 
+type DeleteUserArgs = {
+  id: string;
+};
+
 type UpdateUserArgs = {
   id: string;
   name?: string;
@@ -55,6 +59,7 @@ const typeDefs = `
   type Mutation {
     createUser(name: String!, age: Int!, isMarried: Boolean!): User
     updateUser(id: ID!, name: String!, age: Int!, isMarried: Boolean!): User
+    deleteUser(id: ID!): User
   }
 
   type User {
@@ -105,6 +110,16 @@ const resolvers = {
         throw new Error(`User with id ${id} not found`);
       }
       return userUpdate;
+    },
+    deleteUser: (_parent: unknown, args: DeleteUserArgs): User => {
+      const { id } = args;
+
+      const index = users.findIndex((user) => user.id === id);
+      console.log();
+
+      const userDeleted = users.splice(index, 1)[0];
+
+      return userDeleted;
     },
   },
 };
