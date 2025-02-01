@@ -34,6 +34,14 @@ const CREATE_USER = gql`
   }
 `;
 
+const DELETE_USER = gql`
+  mutation DeleteUser($id: ID!) {
+    deleteUser(id: $id) {
+      id
+    }
+  }
+`;
+
 type user = {
   id: string;
   age: number;
@@ -63,10 +71,11 @@ function App() {
     error: getIdError,
     loading: getIdLoading,
   } = useQuery(GET_USERS_BY_ID, {
-    variables: { id: "1" },
+    variables: { id: "2" },
   });
 
   const [createUser] = useMutation(CREATE_USER);
+  const [deleteUser] = useMutation(DELETE_USER);
 
   if (getUsersLoading || getIdLoading) return <p>Fetching Data...</p>;
 
@@ -81,6 +90,14 @@ function App() {
         name: users.name,
         age: users.age,
         isMarried: users.isMarried,
+      },
+    });
+  }
+
+  async function handleDelete(id: number) {
+    deleteUser({
+      variables: {
+        id: id,
       },
     });
   }
@@ -124,6 +141,9 @@ function App() {
             <h3 className="text-4xl text-red-500">
               {d.isMarried ? "true" : "false"}
             </h3>
+            <button color="white" onClick={() => handleDelete(Number(d.id))}>
+              Delete Users
+            </button>
           </div>
         ))}
       </div>
