@@ -71,8 +71,13 @@ input CreateUserInput {
   }
 
   type Mutation {
-    createUser(input: CreateUserInput!): User
-    updateUser(input: UpdateUserInput!): User
+    createUser(name: String! 
+  age: Int! 
+  isMarried: Boolean!): User
+    updateUser(id: ID!
+  name: String! 
+  age: Int! 
+  isMarried: Boolean!): User
     deleteUser(id: ID!): User
   }
 
