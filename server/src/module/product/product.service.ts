@@ -17,9 +17,10 @@ const product = [
 ];
 
 export class ProductService {
-  static getAllProduct() {
+  static getProduct() {
     return product;
   }
+
   static getProductId(id: string) {
     return product.find((prod) => prod.productId === id);
   }

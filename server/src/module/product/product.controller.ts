@@ -1,11 +1,11 @@
 import { ProductService } from "./product.service";
 
 export class ProductController {
-  static getAllProduct() {
-    return ProductService.getAllProduct();
+  static async getProduct() {
+    return ProductService.getProduct();
   }
 
-  static getProductId(id: string) {
+  static async getProductId(id: string) {
     return ProductService.getProductId(id);
   }
 }

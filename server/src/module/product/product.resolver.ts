@@ -4,7 +4,7 @@ import type { ArgsProductId } from "./product.model";
 export const resolversProduct = {
   Query: {
     getProduct: async () => {
-      return ProductController.getAllProduct();
+      return ProductController.getProduct();
     },
     getProductId: async (_parent: unknown, args: ArgsProductId) => {
       const { productId } = args;

@@ -13,6 +13,16 @@ const GET_USERS = gql`
   }
 `;
 
+const GET_PRODUCT = gql`
+  query GetProduct {
+    getProduct {
+      productId
+      productName
+      productPrice
+    }
+  }
+`;
+
 const GET_USERS_BY_ID = gql`
   query GetUserById($id: ID!) {
     getUserById(id: $id) {
@@ -65,6 +75,12 @@ type user = {
   isMarried: boolean;
 };
 
+type product = {
+  productId: string;
+  productName: string;
+  productPrice: number;
+};
+
 type userData = {
   age: number;
   name: string;
@@ -89,6 +105,8 @@ function App() {
   } = useQuery(GET_USERS_BY_ID, {
     variables: { id: "2" },
   });
+
+  const { data: getProduct } = useQuery(GET_PRODUCT);
 
   const [createUser] = useMutation(CREATE_USER);
   const [deleteUser] = useMutation(DELETE_USER);
@@ -155,6 +173,12 @@ function App() {
       <h1>Users</h1>
       <p>{getIdData.getUserById.name}</p>
       <p>{getIdData.getUserById.age}</p>
+      {getProduct.getProduct.map((prod: product) => (
+        <div key={prod.productId}>
+          <h2>{prod.productName}</h2>
+          <h3>{prod.productPrice}</h3>
+        </div>
+      ))}
       <div>
         {getUsers.getUsers.map((d: user) => (
           <div key={d.id}>

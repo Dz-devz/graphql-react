@@ -1,11 +1,13 @@
 import { ApolloServer } from "@apollo/server";
 import { startStandaloneServer } from "@apollo/server/standalone";
+import { resolversProduct } from "../module/product/product.resolver";
+import { productTypeDefs } from "../module/product/product.schema";
 import { resolvers } from "../module/user/user.resolver";
 import { typeDefs } from "../module/user/user.schema";
 
 const server = new ApolloServer({
-  typeDefs: [typeDefs],
-  resolvers: [resolvers],
+  typeDefs: [typeDefs, productTypeDefs],
+  resolvers: [resolvers, resolversProduct],
 });
 
 export const startServer = async () => {

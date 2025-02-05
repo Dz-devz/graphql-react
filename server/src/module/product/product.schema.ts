@@ -1,7 +1,7 @@
 export const productTypeDefs = `
   type Query {
     getProduct: [Product]
-    getProductId:(id: ID!): Product
+    getProductId(id: ID!): Product
   }
   
   type Product {
